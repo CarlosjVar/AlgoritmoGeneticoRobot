@@ -3,8 +3,6 @@ from Models.Bateria import Bateria
 from Models.Camara import Camara
 from Models.Motor import Motor
 from Models.Comportamiento import Comportamiento
-
-
 class Robot:
     comportamiento = []
     recorrido = []
@@ -31,9 +29,9 @@ class Robot:
         elif((self.direccion=='S') and (self.posicionActual[0]!=19)):
             self.posicionActual[0] = self.posicionActual[0] + 1
         elif ((self.direccion == 'E') and (self.posicionActual[1] != 19)):
-            self.posicionActual[0] = self.posicionActual[1] + 1
+            self.posicionActual[1] = self.posicionActual[1] + 1
         elif ((self.direccion == 'O') and (self.posicionActual[1] != 0)):
-            self.posicionActual[0] = self.posicionActual[1] - 1
+            self.posicionActual[1] = self.posicionActual[1] - 1
     def girarDerecha(self):
         if (self.direccion == 'N' ):
             self.direccion = 'E'
@@ -43,7 +41,6 @@ class Robot:
             self.direccion = 'S'
         elif (self.direccion == 'O'):
             self.direccion = 'N'
-
     def girarIzquierda(self):
         if (self.direccion == 'N'):
             self.direccion = 'O'
@@ -53,6 +50,17 @@ class Robot:
             self.direccion = 'N'
         elif (self.direccion == 'O'):
             self.direccion = 'S'
+    def revisarFrente(self):
+        if (self.camara.numero_espacios==1):
+            return [[self.posicionActual[0]+1][self.posicionActual[1]+1][self.posicionActual[0]-1][self.posicionActual[1]-1]]
+        elif(self.camara.numero_espacios==2):
+            return [[[self.posicionActual[0] + 1][self.posicionActual[1] + 1][self.posicionActual[0] - 1][self.posicionActual[1] - 1]],
+                    [[self.posicionActual[0] + 2][self.posicionActual[1] + 2][self.posicionActual[0] - 2][self.posicionActual[1] - 2]]]
+        elif(self.camara.numero_espacios==3):
+            return [[[self.posicionActual[0] + 1][self.posicionActual[1] + 1][self.posicionActual[0] - 1][self.posicionActual[1] - 1]],
+            [[self.posicionActual[0] + 2][self.posicionActual[1] + 2][self.posicionActual[0] - 2][self.posicionActual[1] - 2]],
+            [[self.posicionActual[0] + 3][self.posicionActual[1] + 3][self.posicionActual[0] - 3][self.posicionActual[1] - 3]]]
+
 
 
 

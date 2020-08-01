@@ -12,5 +12,8 @@ class Comportamiento:
     comportamiento = [[np.random.uniform(0.0,1.0) for i in range(5)] for i in range(5)]
     def __init__(self):
         pass
-    def decidirAccion(self,accionAnterior,tipoTerreno):
+    def decidirAccion(self,accionAnterior,tipoTerreno,puedeAvanzar):
+        #if avanzar
+        #if gderecha
+        #if gizquierda
         pass
