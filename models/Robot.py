@@ -34,6 +34,26 @@ class Robot:
             self.posicionActual[0] = self.posicionActual[1] + 1
         elif ((self.direccion == 'O') and (self.posicionActual[1] != 0)):
             self.posicionActual[0] = self.posicionActual[1] - 1
+    def girarDerecha(self):
+        if (self.direccion == 'N' ):
+            self.direccion = 'E'
+        elif (self.direccion == 'S'):
+            self.direccion = 'O'
+        elif (self.direccion == 'E'):
+            self.direccion = 'S'
+        elif (self.direccion == 'O'):
+            self.direccion = 'N'
+
+    def girarIzquierda(self):
+        if (self.direccion == 'N'):
+            self.direccion = 'O'
+        elif (self.direccion == 'S'):
+            self.direccion = 'E'
+        elif (self.direccion == 'E'):
+            self.direccion = 'N'
+        elif (self.direccion == 'O'):
+            self.direccion = 'S'
+
 
 
 
