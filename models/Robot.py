@@ -1,8 +1,10 @@
 import random
-from Models.Bateria import Bateria
-from Models.Camara import Camara
-from Models.Motor import Motor
-from Models.Comportamiento import Comportamiento
+from models.Bateria import Bateria
+from models.Camara import Camara
+from models.Motor import Motor
+from models.Comportamiento import Comportamiento
+
+
 class Robot:
     comportamiento = []
     recorrido = []

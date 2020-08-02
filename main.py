@@ -1,7 +1,11 @@
-from Models.Robot import Robot
+from models.Robot import Robot
+from controllers.mainController import MainController
 import random
+
+
 def distancia_Al_Objetivo(robot):
     return (objetivo[0]+robot.posicionActual[0])+(objetivo[1]-robot.posicionActual[1])
+
 
 def Realizar_Siguiente_Accion(robot,terreno):
     siguiente_espacio = robot.revisarFrente()
@@ -11,22 +15,21 @@ def Realizar_Siguiente_Accion(robot,terreno):
         pass
 
 
-
-
 terreno=[[random.randint(1,4)for i in range (20)]for i in range(20)]
 objetivo = (0,19)
 
 # Main program
 if __name__ == "__main__":
     print("Algoritmo genetico robot...")
-    generacion = []
-
-    for i in range(10):
-        robot = Robot()
-        generacion.append(robot)
-    robot = generacion[0]
-    for i in range(5):
-        robot.moverAdelante()
-    terreno[robot.posicionActual[0]][robot.posicionActual[1]] =5
-    for tierra in terreno:
-        print(tierra)
+    main_controller = MainController()
+    main_controller.run()
+    # generacion = []
+    # for i in range(10):
+    #     robot = Robot()
+    #     generacion.append(robot)
+    # robot = generacion[0]
+    # for i in range(5):
+    #     robot.moverAdelante()
+    # terreno[robot.posicionActual[0]][robot.posicionActual[1]] =5
+    # for tierra in terreno:
+    #     print(tierra)
