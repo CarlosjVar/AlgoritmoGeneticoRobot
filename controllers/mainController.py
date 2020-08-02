@@ -1,6 +1,6 @@
 import tkinter
 from views.mainView import MainView
-
+import random
 
 class MainController:
 
@@ -15,4 +15,5 @@ class MainController:
         self.root.mainloop()
 
     def test_btn_action(self, event):
+
         print("Hello World")
