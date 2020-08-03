@@ -85,29 +85,29 @@ objetivo = (0,19)
 # Main program
 if __name__ == "__main__":
     print("Algoritmo genetico robot...")
-    # main_controller = MainController()
-    # main_controller.run()
+    main_controller = MainController()
+    main_controller.run()
 
 
-    generacion = []
-    for i in range(10):
-        robot = Robot()
-        generacion.append(robot)
-    robot = generacion[0]
-    robot.motor.potencia=3
-    robot.camara.numero_espacios=1
+    # generacion = []
+    # for i in range(10):
+    #     robot = Robot()
+    #     generacion.append(robot)
+    # robot = generacion[0]
+    # robot.motor.potencia=3
+    # robot.camara.numero_espacios=1
 
 
-    for comportam in robot.comportamiento.comportamiento:
-        print(comportam)
-    s = input("Digite Y para continuar N para terminar")
-    while s=="Y":
-
-        Realizar_Siguiente_Accion(robot,terreno)
-        entero =terreno[robot.posicionActual[0]][robot.posicionActual[1]]
-        terreno[robot.posicionActual[0]][robot.posicionActual[1]] = 5
-        for tierra in terreno:
-            print(tierra)
-        print(robot.posicionActual)
-        terreno[robot.posicionActual[0]][robot.posicionActual[1]] = entero
-        s = input("Digite Y para continuar N para terminar")
+    # for comportam in robot.comportamiento.comportamiento:
+    #     print(comportam)
+    # s = input("Digite Y para continuar N para terminar")
+    # while s=="Y":
+    #
+    #     Realizar_Siguiente_Accion(robot,terreno)
+    #     entero =terreno[robot.posicionActual[0]][robot.posicionActual[1]]
+    #     terreno[robot.posicionActual[0]][robot.posicionActual[1]] = 5
+    #     for tierra in terreno:
+    #         print(tierra)
+    #     print(robot.posicionActual)
+    #     terreno[robot.posicionActual[0]][robot.posicionActual[1]] = entero
+    #     s = input("Digite Y para continuar N para terminar")
