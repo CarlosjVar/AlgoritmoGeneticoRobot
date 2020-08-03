@@ -2,6 +2,8 @@ from models.Robot import Robot
 from controllers.mainController import MainController
 import random
 import numpy as np
+objetivo = (0,19)
+indiceMutacion= 3
 ##TODO: IMPLEMENTAR MUTACIONES TOMANDO USANDO COMO EQUIVALENTE A LA SUBUNIDAD BIT LAS CELDAS DE LA MATRIZ DE COMPORTAMIENTOS
 def Realizar_Siguiente_Accion(robot,terreno):
     campos_Vision = robot.revisar_Alrededor()
@@ -113,7 +115,6 @@ def cargar_Terreno():
 
 
 terreno=[[0 for i in range (20)]for i in range(20)]
-objetivo = (0,19)
 
 # Main program
 if __name__ == "__main__":
