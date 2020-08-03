@@ -14,7 +14,10 @@ class Robot:
     bateria = 0
     costo = 0
     ultimaAccion = -1
+    distanciaRecorrida = 0
     posicionActual = [19,0]
+    activo=True
+    completado=False
 
     def __init__(self):
         self.comportamiento = Comportamiento()
