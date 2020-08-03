@@ -1,6 +1,8 @@
 from models.Robot import Robot
 from controllers.mainController import MainController
 import random
+import numpy as np
+##TODO: IMPLEMENTAR MUTACIONES TOMANDO USANDO COMO EQUIVALENTE A LA SUBUNIDAD BIT LAS CELDAS DE LA MATRIZ DE COMPORTAMIENTOS
 def Realizar_Siguiente_Accion(robot,terreno):
     campos_Vision = robot.revisar_Alrededor()
     accion = robot.accion(campos_Vision,terreno)
@@ -149,3 +151,4 @@ if __name__ == "__main__":
     ###for robot in gen:
     ###    genetics.evaluar(robot)
     ###nuevagen=genetics.generarGen
+

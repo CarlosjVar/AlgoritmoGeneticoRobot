@@ -12,11 +12,14 @@ class Comportamiento:
     #5 Preferir direccion objetivo
     comportamiento = [[np.random.uniform(0.0,1.0) for i in range(6)] for i in range(6)]
     def __init__(self):
-        # for i in range(6):
-        #     probabilidad_Restante = 1.0
-        #     for o in range (6):
-        #         self.comportamiento[i][o] = np.random.uniform(0.0,probabilidad_Restante)
-        #         probabilidad_Restante -=  self.comportamiento[i][o]
+        for i in range(6):
+            sumaNormalizar = 0
+            for o in range(6):
+                rand = np.random.uniform(0, 100)
+                self.comportamiento[i][o] = rand
+                sumaNormalizar += rand
+            for o in range(6):
+                self.comportamiento[i][o] = self.comportamiento[i][o] / sumaNormalizar
 
         pass
     def decidirAccion(self,accionAnterior,campos_Vision,terreno):
