@@ -1,6 +1,6 @@
 import tkinter
 from views.mainView import MainView
-from PIL import Image, ImageTk
+
 
 class MainController:
 
