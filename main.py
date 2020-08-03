@@ -16,6 +16,7 @@ def Realizar_Siguiente_Accion(robot,terreno):
             robot.mover_Izquierda()
             robot.bateria.capacidad-=robot.motor.consumo
             robot.distanciaRecorrida +=1
+            robot.costoRecorrido+=terreno[robot.posicionActual[0]][robot.posicionActual[1]-1]
     elif accion[0]  == 1:
         if robot.posicionActual[1] == 19:
             print("Estoy al límite")
@@ -27,6 +28,7 @@ def Realizar_Siguiente_Accion(robot,terreno):
             robot.mover_Derecha()
             robot.bateria.capacidad-=robot.motor.consumo
             robot.distanciaRecorrida += 1
+            robot.costoRecorrido+=terreno[robot.posicionActual[0]][robot.posicionActual[1]+1]
     elif accion[0]  == 2:
         if robot.posicionActual[0] == 0:
            return
@@ -36,8 +38,8 @@ def Realizar_Siguiente_Accion(robot,terreno):
             robot.mover_Adelante()
             robot.bateria.capacidad-=robot.motor.consumo
             robot.distanciaRecorrida += 1
+            robot.costoRecorrido+=terreno[robot.posicionActual[0]-1][robot.posicionActual[1]]
     elif accion[0]  == 3 or accion[0] == 4 :
-        print(accion[1])
         if accion[1] == "Norte":
             if robot.posicionActual[0] == 0:
                 return
@@ -47,6 +49,7 @@ def Realizar_Siguiente_Accion(robot,terreno):
                 robot.mover_Adelante()
                 robot.bateria.capacidad -= robot.motor.consumo
                 robot.distanciaRecorrida += 1
+                robot.costoRecorrido += terreno[robot.posicionActual[0] - 1][robot.posicionActual[1]]
         elif accion[1] == "Oeste":
             if robot.posicionActual[1] == 0:
                 return
@@ -56,6 +59,7 @@ def Realizar_Siguiente_Accion(robot,terreno):
                 robot.mover_Izquierda()
                 robot.bateria.capacidad -= robot.motor.consumo
                 robot.distanciaRecorrida += 1
+                robot.costoRecorrido += terreno[robot.posicionActual[0]][robot.posicionActual[1] - 1]
         elif accion[1] == "Este":
             if robot.posicionActual[1] == 19:
                 return
@@ -65,6 +69,7 @@ def Realizar_Siguiente_Accion(robot,terreno):
                 robot.mover_Derecha()
                 robot.bateria.capacidad -= robot.motor.consumo
                 robot.distanciaRecorrida += 1
+                robot.costoRecorrido+=[robot.posicionActual[0]][robot.posicionActual[1] + 1]
         #MOVER AL SUR
         else:
             if robot.posicionActual[0] == 19 :
@@ -74,6 +79,8 @@ def Realizar_Siguiente_Accion(robot,terreno):
             else:
                 robot.mover_Atras()
                 robot.bateria.capacidad -= robot.motor.consumo
+                robot.distanciaRecorrida+=1
+                robot.costoRecorrido += terreno[robot.posicionActual[0] + 1][robot.posicionActual[1]]
         #TODO: CODEAR DECISIÓN DIRECCIÓN AL OBJETIVO
 
         #Robot agotó su batería , por tanto se desactiva
