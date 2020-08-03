@@ -18,7 +18,7 @@ class Robot:
     posicionActual = [19,0]
     activo=True
     completado=False
-
+    costoRecorrido=0
     def __init__(self):
         self.comportamiento = Comportamiento()
         self.camara = Camara(random.randint(1,3))
