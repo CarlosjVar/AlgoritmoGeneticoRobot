@@ -91,12 +91,7 @@ class Comportamiento:
                 maxi = costoOeste
                 direccion = "Oeste"
         # TODO: CODEAR DECISIÓN DIRECCIÓN AL OBJETIVO
-
         return [accionGanadora,direccion]
-
-
-
-
     def verificarProbabilidad(self,acciones):
         for i in range(len(acciones)):
             probAleatoria = random.uniform(0, 1.0)
