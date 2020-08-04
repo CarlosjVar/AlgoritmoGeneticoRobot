@@ -1,8 +1,5 @@
 class Camara:
-    consumo = 0
-    costo = 0
-    numero_espacios = 0
-    tipo_camara = 0
+
     def __init__(self, tipocamara):
         if tipocamara == 1:
             self.consumo = 0
