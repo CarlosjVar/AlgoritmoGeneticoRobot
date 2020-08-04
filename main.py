@@ -1,7 +1,6 @@
 from models.Robot import Robot
 from controllers.mainController import MainController
-import random
-import numpy as np
+
 objetivo = (0,19)
 indiceMutacion= 3
 ##TODO: IMPLEMENTAR MUTACIONES TOMANDO USANDO COMO EQUIVALENTE A LA SUBUNIDAD BIT LAS CELDAS DE LA MATRIZ DE COMPORTAMIENTOS
@@ -93,28 +92,15 @@ def Realizar_Siguiente_Accion(robot,terreno):
         #Robot llegó a su destino , por tanto cesa sus funciones
         if(robot.posicionActual[0] == objetivo[0] and robot.posicionActual[1] == objetivo[1] ):
             robot.completado=True
+
+
 def get_poblacion_activa(generacion):
     poblacionActiva = []
     for robot in generacion:
         if (robot.activo )or (not robot.completado) :
             poblacionActiva.append(robot)
     return poblacionActiva
-def cargar_Terreno():
-    fila_Terreno =open("./_resources/terreno.txt","r")
-    if fila_Terreno.mode == "r":
-        lineas = fila_Terreno.read().splitlines()
-        fila=0
-        for linea in lineas:
-            tiles = linea.split(",")
-            columna =0
-            for tile in tiles:
-                terreno[fila][columna] = int(tile)
-                columna+=1
-            fila+=1
 
-
-
-terreno=[[0 for i in range (20)]for i in range(20)]
 
 # Main program
 if __name__ == "__main__":
@@ -130,18 +116,6 @@ if __name__ == "__main__":
     robot.camara.numero_espacios=1
     for comportam in robot.comportamiento.comportamiento:
         print(comportam)
-    cargar_Terreno()
-    s = input("Digite Y para continuar N para terminar")
-    cargar_Terreno()
-    while s=="Y":
-        Realizar_Siguiente_Accion(robot,terreno)
-        entero =terreno[robot.posicionActual[0]][robot.posicionActual[1]]
-        terreno[robot.posicionActual[0]][robot.posicionActual[1]] = 5
-        for tierra in terreno:
-            print(tierra)
-        print(robot.bateria.capacidad)
-        terreno[robot.posicionActual[0]][robot.posicionActual[1]] = entero
-        s = input("Digite Y para continuar N para terminar")
     ###BOCETO
     ###GENERACION
     ###GENERACIONACTIVA = FUNC(GENERACION)
