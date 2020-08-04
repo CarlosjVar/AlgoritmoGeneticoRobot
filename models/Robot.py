@@ -27,14 +27,39 @@ class Robot:
     def accion(self, bloques_adyacentes,terreno):
         accionRealizar =  self.comportamiento.decidirAccion(self.ultimaAccion,bloques_adyacentes,terreno)
         return accionRealizar
-    def mover_Adelante(self):
+    def mover_Adelante(self,tipoTerreno):
         self.posicionActual[0] = self.posicionActual[0] - 1
-    def mover_Derecha(self):
-         self.posicionActual[1] = self.posicionActual[1] + 1
-    def mover_Atras(self):
+        if tipoTerreno == 1:
+            self.bateria.capacidad-=25
+        elif tipoTerreno == 2:
+            self.bateria.capacidad -= 35
+        else:
+            self.bateria.capacidad-=50
+
+    def mover_Derecha(self,tipoTerreno):
+        self.posicionActual[1] = self.posicionActual[1] + 1
+        if tipoTerreno == 1:
+            self.bateria.capacidad-=25
+        elif tipoTerreno == 2:
+            self.bateria.capacidad -= 35
+        else:
+            self.bateria.capacidad-=50
+    def mover_Atras(self,tipoTerreno):
         self.posicionActual[0] = self.posicionActual[0] + 1
-    def mover_Izquierda(self):
+        if tipoTerreno == 1:
+            self.bateria.capacidad-=25
+        elif tipoTerreno == 2:
+            self.bateria.capacidad -= 35
+        else:
+            self.bateria.capacidad-=50
+    def mover_Izquierda(self,tipoTerreno):
         self.posicionActual[1] = self.posicionActual[1] - 1
+        if tipoTerreno == 1:
+            self.bateria.capacidad-=25
+        elif tipoTerreno == 2:
+            self.bateria.capacidad -= 35
+        else:
+            self.bateria.capacidad-=50
     def revisar_Alrededor(self):
         diccEspacios={}
         if (self.camara.numero_espacios==1):

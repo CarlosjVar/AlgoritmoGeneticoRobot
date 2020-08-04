@@ -20,8 +20,6 @@ class Comportamiento:
                 sumaNormalizar += rand
             for o in range(6):
                 self.comportamiento[i][o] = self.comportamiento[i][o] / sumaNormalizar
-
-        pass
     def decidirAccion(self,accionAnterior,campos_Vision,terreno):
         costoNorte = 0
         costoSur = 0

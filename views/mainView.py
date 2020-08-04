@@ -8,8 +8,8 @@ class MainView:
         self.main_container.grid(row=0, column=0)
         self.btn_container = Frame(root_window)
         self.btn_container.grid(row=0, column=1)
-        self.change_btn = Button(self.btn_container, text="presioname")
-        self.change_btn.grid(row=0, column=0)
+        self.iniciar_btn = Button(self.btn_container, text="presioname")
+        self.iniciar_btn.grid(row=0, column=0)
         # Cargar imagenes
         self.terreno_normal = ImageTk.PhotoImage(Image.open("assets/normal.png"))
         self.terreno_moderado = ImageTk.PhotoImage(Image.open("assets/moderado.png"))
