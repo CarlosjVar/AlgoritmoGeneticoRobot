@@ -1,8 +1,10 @@
 import tkinter
+import threading
+import time
 from views.mainView import MainView
 from helpers import cargar_terreno
 from models.Robot import Robot
-
+from models.Geneticos import get_poblacion_activa,crearNuevaGen,Realizar_Siguiente_Accion
 class MainController:
     generacionActual= []
     generacionesPasadas=[[]]
@@ -17,9 +19,27 @@ class MainController:
         self.root.mainloop()
     def Iniciar(self,event):
         for i in range(10):
-            robot = Robot()
-            self.generacionActual.append(robot)
-        for rob in self.generacionActual:
-            print(rob.motor.potencia)
+            self.generacionActual.append(Robot())
+        # Setup de los threads
+        fitness = 0
+        for individuo in self.generacionActual:
+            for com in individuo.comportamiento.comportamiento:
+                print(com)
+            print("\n")
+            # print(individuo.motor.potencia)
+            #
+        while fitness < 170:
+            poblacioActiva = get_poblacion_activa(self.generacionActual)
+            if (len(poblacioActiva) == 0):
+                self.generacionesPasadas.append(self.generacionActual)
+                for rob in self.generacionActual:
+                    self.main_view.updateImg(rob.posicionActual)
+                    print("El robot está en",rob.posicionActual)
+                    print("\n")
 
+                self.generacionActual = crearNuevaGen(self.generacionActual)
+
+
+            for rob in poblacioActiva:
+                Realizar_Siguiente_Accion(rob, self.terreno)
 

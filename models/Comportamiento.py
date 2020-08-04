@@ -10,8 +10,9 @@ class Comportamiento:
     #3 Preferir terreno menor coste
     #4 Preferir terreno mayor coste
     #5 Preferir direccion objetivo
-    comportamiento = [[np.random.uniform(0.0,1.0) for i in range(6)] for i in range(6)]
     def __init__(self):
+
+        self.comportamiento = [[np.random.uniform(0.0, 1.0) for i in range(6)] for i in range(6)]
         for i in range(6):
             sumaNormalizar = 0
             for o in range(6):
@@ -49,10 +50,8 @@ class Comportamiento:
                 costoOeste += terreno[tupleEspacio[0]][tupleEspacio[1]]
             else:
                 break
-        print(costoNorte,"Norte \n",costoSur,"Sur \n" , costoEste ,"Este \n", costoOeste , "Oeste \n")
         accionGanadora=-1
         if accionAnterior == -1:
-            #TODO: Otra forma de tomar en cuenta probabilidades
             acciones = self.comportamiento[random.randint(0,5)]
             while accionGanadora == -1:
                 accionGanadora = self.verificarProbabilidad(acciones)

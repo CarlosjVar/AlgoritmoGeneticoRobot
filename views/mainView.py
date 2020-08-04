@@ -45,3 +45,5 @@ class MainView:
                     self.terrain_img_grid[fila_terreno][bloque] = bloque_canvas.create_image(0, 0, image=self.terreno_bloqueado, anchor=NW)
                     self.terrain_grid[fila_terreno][bloque] = bloque_canvas
 
+    def updateImg(self,cordenadas):
+        self.terrain_grid[cordenadas[0]][cordenadas[1]].itemconfig(self.terrain_img_grid[cordenadas[0]][cordenadas[1]],image=self.terreno_bloqueado)

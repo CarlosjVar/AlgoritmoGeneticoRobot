@@ -101,21 +101,11 @@ def get_poblacion_activa(generacion):
             poblacionActiva.append(robot)
     return poblacionActiva
 
-
 # Main program
 if __name__ == "__main__":
     print("Algoritmo genetico robot...")
     main_controller = MainController()
     main_controller.run()
-    generacion = []
-    for i in range(10):
-        robot = Robot()
-        generacion.append(robot)
-    robot = generacion[0]
-    robot.motor.potencia=3
-    robot.camara.numero_espacios=1
-    for comportam in robot.comportamiento.comportamiento:
-        print(comportam)
     ###BOCETO
     ###GENERACION
     ###GENERACIONACTIVA = FUNC(GENERACION)

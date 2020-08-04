@@ -6,24 +6,20 @@ from models.Comportamiento import Comportamiento
 
 
 class Robot:
-    comportamiento = []
-    recorrido = []
-    padres = []
-    camara = 0
-    motor = 0
-    bateria = 0
-    costo = 0
-    ultimaAccion = -1
-    distanciaRecorrida = 0
-    posicionActual = [19,0]
-    activo=True
-    completado=False
-    costoRecorrido=0
     def __init__(self):
         self.comportamiento = Comportamiento()
         self.camara = Camara(random.randint(1,3))
         self.motor = Motor(random.randint(1,3))
         self.bateria = Bateria(random.randint(1,3))
+        self.posicionActual = [19,0]
+        self.recorrido = []
+        self.padres = []
+        self.costo = 0
+        self.ultimaAccion = -1
+        self.distanciaRecorrida = 0
+        self.activo = True
+        self.completado = False
+        self.costoRecorrido = 0
     def accion(self, bloques_adyacentes,terreno):
         accionRealizar =  self.comportamiento.decidirAccion(self.ultimaAccion,bloques_adyacentes,terreno)
         return accionRealizar
