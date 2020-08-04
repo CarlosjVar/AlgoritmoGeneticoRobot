@@ -119,8 +119,8 @@ terreno=[[0 for i in range (20)]for i in range(20)]
 # Main program
 if __name__ == "__main__":
     print("Algoritmo genetico robot...")
-    # main_controller = MainController()
-    # main_controller.run()
+    main_controller = MainController()
+    main_controller.run()
     generacion = []
     for i in range(10):
         robot = Robot()
@@ -152,4 +152,3 @@ if __name__ == "__main__":
     ###for robot in gen:
     ###    genetics.evaluar(robot)
     ###nuevagen=genetics.generarGen
-
