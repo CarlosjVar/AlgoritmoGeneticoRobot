@@ -107,7 +107,7 @@ def Realizar_Siguiente_Accion(robot,terreno):
             robot.mover_Adelante(terreno[robot.posicionActual[0]][robot.posicionActual[1]])
             robot.distanciaRecorrida += 1
             robot.costoRecorrido+=terreno[robot.posicionActual[0]+1][robot.posicionActual[1]]
-    elif accion[0]  == 3 or accion[0] == 4 :
+    elif accion[0]  == 3 or accion[0] == 4:
         if accion[1] == "Norte":
             if robot.posicionActual[0] == 0:
                 pass
@@ -164,6 +164,7 @@ def Realizar_Siguiente_Accion(robot,terreno):
         elif robot.posicionActual[1] < objetivo[1]:
             robot.mover_Derecha(terreno[robot.posicionActual[0]][robot.posicionActual[1]])
             robot.costoRecorrido += terreno[robot.posicionActual[0]][robot.posicionActual[1]-1]
+
 
 
     #Robot agotó su batería , por tanto se desactiva

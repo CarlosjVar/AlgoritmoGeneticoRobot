@@ -12,11 +12,11 @@ class Comportamiento:
     #5 Preferir direccion objetivo
     def __init__(self):
 
-        self.comportamiento = [[np.random.uniform(0.0, 1.0) for i in range(6)] for i in range(6)]
+        self.comportamiento = [[random.random() for i in range(6)] for i in range(6)]
         for i in range(6):
             sumaNormalizar = 0
             for o in range(6):
-                rand = np.random.uniform(0, 100)
+                rand = random.random()
                 self.comportamiento[i][o] = rand
                 sumaNormalizar += rand
             for o in range(6):
@@ -90,15 +90,14 @@ class Comportamiento:
             if costoOeste > maxi:
                 maxi = costoOeste
                 direccion = "Oeste"
-        # TODO: CODEAR DECISIÓN DIRECCIÓN AL OBJETIVO
         return [accionGanadora,direccion]
     def verificarProbabilidad(self,acciones):
         for i in range(len(acciones)):
-            probAleatoria = random.uniform(0, 1.0)
-            if acciones[i] == 0:
-                continue
-            elif acciones[i] == 1.0:
-                return i
-            elif acciones[i] <= probAleatoria:
+            if self.flip(acciones[i]):
                 return i
         return -1
+    def flip(self,prob):
+        if random.random() < prob:
+            return True
+        else:
+            return False
