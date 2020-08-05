@@ -1,4 +1,5 @@
 import random
+import uuid
 from models.Bateria import Bateria
 from models.Camara import Camara
 from models.Motor import Motor
@@ -20,10 +21,12 @@ class Robot:
         self.activo = True
         self.completado = False
         self.costoRecorrido = 0
+        self.id= uuid.uuid1()
     def accion(self, bloques_adyacentes,terreno):
         accionRealizar =  self.comportamiento.decidirAccion(self.ultimaAccion,bloques_adyacentes,terreno)
         return accionRealizar
     def mover_Adelante(self,tipoTerreno):
+        self.distanciaRecorrida+=1
         self.posicionActual[0] = self.posicionActual[0] - 1
         if tipoTerreno == 1:
             self.bateria.capacidad-=25
@@ -33,6 +36,7 @@ class Robot:
             self.bateria.capacidad-=50
 
     def mover_Derecha(self,tipoTerreno):
+        self.distanciaRecorrida+=1
         self.posicionActual[1] = self.posicionActual[1] + 1
         if tipoTerreno == 1:
             self.bateria.capacidad-=25
@@ -41,6 +45,7 @@ class Robot:
         else:
             self.bateria.capacidad-=50
     def mover_Atras(self,tipoTerreno):
+        self.distanciaRecorrida+=1
         self.posicionActual[0] = self.posicionActual[0] + 1
         if tipoTerreno == 1:
             self.bateria.capacidad-=25
@@ -49,6 +54,7 @@ class Robot:
         else:
             self.bateria.capacidad-=50
     def mover_Izquierda(self,tipoTerreno):
+        self.distanciaRecorrida+=1
         self.posicionActual[1] = self.posicionActual[1] - 1
         if tipoTerreno == 1:
             self.bateria.capacidad-=25

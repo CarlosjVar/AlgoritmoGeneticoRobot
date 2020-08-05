@@ -26,17 +26,14 @@ class MainController:
             for com in individuo.comportamiento.comportamiento:
                 print(com)
             print("\n")
-            # print(individuo.motor.potencia)
-            #
         while fitness < 170:
             poblacioActiva = get_poblacion_activa(self.generacionActual)
             if (len(poblacioActiva) == 0):
-                self.generacionesPasadas.append(self.generacionActual)
                 for rob in self.generacionActual:
                     self.main_view.updateImg(rob.posicionActual)
                     print("El robot está en",rob.posicionActual)
                     print("\n")
-
+                self.generacionesPasadas.append(self.generacionActual)
                 self.generacionActual = crearNuevaGen(self.generacionActual)
 
 

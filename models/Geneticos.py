@@ -1,20 +1,32 @@
 import numpy as np
-
+from operator import itemgetter
 from models.Robot import Robot
 
 objetivo = (0,19)
 class Geneticos:
-    valores_Fitness = []
-    valores_Fitness_Normalizados = []
-    promedioFitness = 0
+    def __init__(self):
+        self.valores_Fitness = []
+        self.promedioFitness = 0
+        self.newGen=[]
+    #TODO: AGREGAR FITNESS BASADO EN TIEMPO
     def fitnessGeneracion(self,robots):
         for robot in robots:
             self.fitness(robot)
-        self.promedioFitness = np.average(self.valores_Fitness)
-        sumaValores=np.sum(self.valores_Fitness)
-        for valor in self.valores_Fitness:
-            normalizado = valor/sumaValores
-            self.valores_Fitness_Normalizados.append(normalizado)
+        fitnessValores=[]
+        for dic in self.valores_Fitness:
+            fitnessValores.append(dic["Fitness"])
+        self.promedioFitness=np.average(fitnessValores)
+        sumaValores=np.sum(fitnessValores)
+        for dic in self.valores_Fitness :
+            dic["Normalizado"] = dic["Fitness"]/sumaValores
+
+        listSorted= sorted(self.valores_Fitness,key=itemgetter("Fitness"),reverse=True)
+
+        self.newGen+=listSorted[0:5]
+        while len (self.newGen) <11:
+            self.cruce()
+            pass
+
 
     def fitness(self,robot):
         distancia = self.distancia_Al_Objetivo(robot)
@@ -22,8 +34,13 @@ class Geneticos:
         fitTravelled = self.fitness_Travelled(robot.distanciaRecorrida)
         fitHardw=self.fitness_Hardware(robot)
         fitBatt=self.fitness_Battery(robot.bateria)
-        fitCost=self.fitness_CostoRecorrido(robot)
-        self.valores_Fitness.append(fitDist+fitTravelled+fitHardw+fitBatt+fitCost)
+        fitCost=self.fitness_CostoRecorrido(robot.costoRecorrido)
+        robFitness= {}
+        robFitness["Id"] = robot.id
+        robFitness["Fitness"] = fitDist+fitTravelled+fitHardw+fitBatt+fitCost
+        self.valores_Fitness.append(robFitness)
+    def cruce(self):
+        pass
     def distancia_Al_Objetivo(self, robot):
         return (objetivo[0] + robot.posicionActual[0]) + (objetivo[1] - robot.posicionActual[1])
     #Maxima distancia posible = 38
@@ -31,8 +48,11 @@ class Geneticos:
         if distancia==0:
             return 90
         return 80//distancia
+    #TODO: Analizar caso spawn cercano al objetivo
     def fitness_CostoRecorrido(self,costoRecorrido):
         return 1300//costoRecorrido
+
+    #TODO: Analizar caso spawn cercano al objetivo
     def fitness_Travelled(self,travelledDist):
         return 1100//travelledDist
     ##Posibles valores de la suma del costo
@@ -67,11 +87,11 @@ class Geneticos:
         return 1100//(robot.motor.costo+robot.camara.costo+robot.bateria.costo)
     def fitness_Battery(self,bateria):
         if(bateria.tipo_Bateria==1):
-            return bateria.capacidad//2.5
+            return bateria.capacidad//10
         elif(bateria.tipo_Bateria==2):
-            return  bateria.capacidad//4.25
+            return  bateria.capacidad//15
         elif(bateria.tipo_Bateria==3):
-            return  bateria.capacidad//5.95
+            return  bateria.capacidad//20
 
 
 def Realizar_Siguiente_Accion(robot,terreno):
@@ -86,7 +106,7 @@ def Realizar_Siguiente_Accion(robot,terreno):
             robot.activo=False
         else:
             robot.mover_Izquierda(terreno[robot.posicionActual[0]][robot.posicionActual[1]])
-            robot.distanciaRecorrida +=1
+
             robot.costoRecorrido+=terreno[robot.posicionActual[0]][robot.posicionActual[1]+1]
     elif accion[0]  == 1:
         if robot.posicionActual[1] == 19:
@@ -95,7 +115,7 @@ def Realizar_Siguiente_Accion(robot,terreno):
             robot.activo=False
         else:
             robot.mover_Derecha(terreno[robot.posicionActual[0]][robot.posicionActual[1]])
-            robot.distanciaRecorrida += 1
+
             robot.costoRecorrido+=terreno[robot.posicionActual[0]][robot.posicionActual[1]-1]
     elif accion[0]  == 2:
         if robot.posicionActual[0] == 0:
@@ -105,7 +125,6 @@ def Realizar_Siguiente_Accion(robot,terreno):
 
         else:
             robot.mover_Adelante(terreno[robot.posicionActual[0]][robot.posicionActual[1]])
-            robot.distanciaRecorrida += 1
             robot.costoRecorrido+=terreno[robot.posicionActual[0]+1][robot.posicionActual[1]]
     elif accion[0]  == 3 or accion[0] == 4:
         if accion[1] == "Norte":
@@ -115,7 +134,6 @@ def Realizar_Siguiente_Accion(robot,terreno):
                 robot.activo = False
             else:
                 robot.mover_Adelante(terreno[robot.posicionActual[0]][robot.posicionActual[1]])
-                robot.distanciaRecorrida += 1
                 robot.costoRecorrido += terreno[robot.posicionActual[0] + 1][robot.posicionActual[1]]
         elif accion[1] == "Oeste":
             if robot.posicionActual[1] == 0:
@@ -124,7 +142,6 @@ def Realizar_Siguiente_Accion(robot,terreno):
                 robot.activo=False
             else:
                 robot.mover_Izquierda(terreno[robot.posicionActual[0]][robot.posicionActual[1]])
-                robot.distanciaRecorrida += 1
                 robot.costoRecorrido += terreno[robot.posicionActual[0]][robot.posicionActual[1] + 1]
         elif accion[1] == "Este":
             if robot.posicionActual[1] == 19:
@@ -133,7 +150,6 @@ def Realizar_Siguiente_Accion(robot,terreno):
                 robot.activo=False
             else:
                 robot.mover_Derecha(terreno[robot.posicionActual[0]][robot.posicionActual[1]])
-                robot.distanciaRecorrida += 1
                 robot.costoRecorrido+=terreno[robot.posicionActual[0]][robot.posicionActual[1]-1]
         #MOVER AL SUR
         else:
@@ -144,7 +160,6 @@ def Realizar_Siguiente_Accion(robot,terreno):
                 robot.activo=False
             else:
                 robot.mover_Atras(terreno[robot.posicionActual[0]][robot.posicionActual[1]])
-                robot.distanciaRecorrida+=1
                 robot.costoRecorrido += terreno[robot.posicionActual[0] - 1][robot.posicionActual[1]]
     # DIRECCIÓN AL OBJETIVO
     elif accion[0] == 5:
@@ -168,23 +183,26 @@ def Realizar_Siguiente_Accion(robot,terreno):
 
 
     #Robot agotó su batería , por tanto se desactiva
-    if (robot.bateria.capacidad<0):
+    if (robot.bateria.capacidad<=0):
         robot.activo=False
+        robot.completado=True
     #Robot llegó a su destino , por tanto cesa sus funciones
     if(robot.posicionActual[0] == objetivo[0] and robot.posicionActual[1] == objetivo[1] ):
+        print("Robot en objetivo")
         robot.completado=True
-
-
+        robot.activo=False
 def get_poblacion_activa(generacion):
     poblacionActiva = []
     for robot in generacion:
         if (robot.activo) :
             poblacionActiva.append(robot)
-        elif robot.completado :
+        elif not robot.completado :
             poblacionActiva.append(robot)
-
     return poblacionActiva
 
 def crearNuevaGen(generacion):
+    gen = Geneticos()
+    gen.fitnessGeneracion(generacion)
+
     pass
 
