@@ -19,7 +19,6 @@ class Geneticos:
         sumaValores=np.sum(fitnessValores)
         for dic in self.valores_Fitness :
             dic["Normalizado"] = dic["Fitness"]/sumaValores
-
         listSorted= sorted(self.valores_Fitness,key=itemgetter("Fitness"),reverse=True)
 
         self.newGen+=listSorted[0:5]
@@ -43,7 +42,6 @@ class Geneticos:
         pass
     def distancia_Al_Objetivo(self, robot):
         return (objetivo[0] + robot.posicionActual[0]) + (objetivo[1] - robot.posicionActual[1])
-    #Maxima distancia posible = 38
     def fitness_Distancia(self,distancia):
         if distancia==0:
             return 90
@@ -55,34 +53,6 @@ class Geneticos:
     #TODO: Analizar caso spawn cercano al objetivo
     def fitness_Travelled(self,travelledDist):
         return 1100//travelledDist
-    ##Posibles valores de la suma del costo
-    ## Motor 1,camara 1,bateria 1 : 65
-    ## Motor 1,camara 1,bateria 2 : 70
-    ## Motor 1,camara 1,bateria 3 : 80
-    ## Motor 1,camara 2,bateria 1 : 70
-    ## Motor 1,camara 2,bateria 2 : 75
-    ## Motor 1,camara 2,bateria 3 : 90
-    ## Motor 1,camara 3,bateria 1 : 75
-    ## Motor 1,camara 3,bateria 2 : 80
-    ## Motor 1,camara 3,bateria 3 : 95
-    ## Motor 2,camara 1,bateria 1 : 75
-    ## Motor 2,camara 1,bateria 2 : 80
-    ## Motor 2,camara 1,bateria 3 : 95
-    ## Motor 2,camara 2,bateria 1 : 80
-    ## Motor 2,camara 2,bateria 2 : 85
-    ## Motor 2,camara 2,bateria 3 : 100
-    ## Motor 2,camara 3,bateria 1 : 85
-    ## Motor 2,camara 3,bateria 2 : 90
-    ## Motor 2,camara 3,bateria 3 : 105
-    ## Motor 3,camara 1,bateria 1 : 90
-    ## Motor 3,camara 1,bateria 2 : 95
-    ## Motor 3,camara 1,bateria 3 : 110
-    ## Motor 3,camara 2,bateria 1 : 95
-    ## Motor 3,camara 2,bateria 2 : 100
-    ## Motor 3,camara 2,bateria 3 : 115
-    ## Motor 3,camara 3,bateria 1 : 100
-    ## Motor 3,camara 3,bateria 2 : 105
-    ## Motor 3,camara 3,bateria 3 : 120
     def fitness_Hardware(self,robot):
         return 1100//(robot.motor.costo+robot.camara.costo+robot.bateria.costo)
     def fitness_Battery(self,bateria):
