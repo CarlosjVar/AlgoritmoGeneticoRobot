@@ -1,7 +1,10 @@
+import random
+
 import numpy as np
 from operator import itemgetter
+from helpers import flip
 from models.Robot import Robot
-
+indiceMutacion= 3
 objetivo = (0,19)
 class Geneticos:
     def __init__(self):
@@ -20,11 +23,12 @@ class Geneticos:
         for dic in self.valores_Fitness :
             dic["Normalizado"] = dic["Fitness"]/sumaValores
         listSorted= sorted(self.valores_Fitness,key=itemgetter("Fitness"),reverse=True)
-
-        self.newGen+=listSorted[0:5]
-        while len (self.newGen) <11:
+        for i in range(5):
+            robot
+            self.newGen.append(listSorted[i]["Robot"])
+        while len(self.newGen)<10:
             self.cruce()
-            pass
+        print(len(self.newGen))
 
 
     def fitness(self,robot):
@@ -35,10 +39,26 @@ class Geneticos:
         fitBatt=self.fitness_Battery(robot.bateria)
         fitCost=self.fitness_CostoRecorrido(robot.costoRecorrido)
         robFitness= {}
-        robFitness["Id"] = robot.id
+        robFitness["Robot"] = robot
         robFitness["Fitness"] = fitDist+fitTravelled+fitHardw+fitBatt+fitCost
+        print("FitnessDist",fitDist,"\n Fitness Viajado",fitTravelled,"\n Fitness Hard",fitHardw,"Fitness Bateria",fitBatt,"\nFitness costo",fitCost)
         self.valores_Fitness.append(robFitness)
     def cruce(self):
+        padre=0
+        madre=0
+        while padre==0:
+            for robot in self.valores_Fitness:
+                if(flip(robot["Normalizado"])):
+                    padre=robot["Robot"]
+        while madre==0:
+            for robot in self.valores_Fitness:
+                if(flip(robot["Normalizado"])):
+                    if not (robot["Robot"].id == padre.id):
+                        madre=robot["Robot"]
+        robotcin = Robot(padre,madre)
+        self.newGen.append(robotcin)
+
+
         pass
     def distancia_Al_Objetivo(self, robot):
         return (objetivo[0] + robot.posicionActual[0]) + (objetivo[1] - robot.posicionActual[1])
@@ -154,6 +174,7 @@ def Realizar_Siguiente_Accion(robot,terreno):
 
     #Robot agotó su batería , por tanto se desactiva
     if (robot.bateria.capacidad<=0):
+        robot.bateria.capacidad=0
         robot.activo=False
         robot.completado=True
     #Robot llegó a su destino , por tanto cesa sus funciones
@@ -173,6 +194,6 @@ def get_poblacion_activa(generacion):
 def crearNuevaGen(generacion):
     gen = Geneticos()
     gen.fitnessGeneracion(generacion)
+    return [gen.promedioFitness,gen.newGen]
 
-    pass
 

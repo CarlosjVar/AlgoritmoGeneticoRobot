@@ -1,3 +1,4 @@
+import random
 def cargar_terreno():
     terreno = [[0 for i in range(20)] for i in range(20)]
     fila_Terreno = open("./_resources/terreno.txt","r")
@@ -12,3 +13,8 @@ def cargar_terreno():
                 columna += 1
             fila += 1
     return terreno
+def flip(prob):
+    if random.random() < prob:
+        return True
+    else:
+        return False

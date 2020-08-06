@@ -22,19 +22,20 @@ class MainController:
             self.generacionActual.append(Robot())
         # Setup de los threads
         fitness = 0
-        for individuo in self.generacionActual:
-            for com in individuo.comportamiento.comportamiento:
-                print(com)
-            print("\n")
-        while fitness < 170:
+        # for individuo in self.generacionActual:
+        #     for com in individuo.comportamiento.comportamiento:
+        #         print(com)
+        #     print("\n")
+        while fitness < 240:
+            print(fitness)
             poblacioActiva = get_poblacion_activa(self.generacionActual)
             if (len(poblacioActiva) == 0):
                 for rob in self.generacionActual:
                     self.main_view.updateImg(rob.posicionActual)
-                    print("El robot está en",rob.posicionActual)
-                    print("\n")
                 self.generacionesPasadas.append(self.generacionActual)
-                self.generacionActual = crearNuevaGen(self.generacionActual)
+                resultadosCruce = crearNuevaGen(self.generacionActual)
+                fitness = resultadosCruce[0]
+                self.generacionActual = resultadosCruce[1]
 
 
             for rob in poblacioActiva:
