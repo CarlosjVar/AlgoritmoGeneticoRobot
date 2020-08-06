@@ -41,7 +41,8 @@ class Geneticos:
         robFitness= {}
         robFitness["Robot"] = robot
         robFitness["Fitness"] = fitDist+fitTravelled+fitHardw+fitBatt+fitCost
-        print("FitnessDist",fitDist,"\n Fitness Viajado",fitTravelled,"\n Fitness Hard",fitHardw,"Fitness Bateria",fitBatt,"\nFitness costo",fitCost)
+        print("FitnessDist",fitDist,"\n Fitness Recorrido",fitTravelled,"\n Fitness Hard",fitHardw,"Fitness Bateria",fitBatt,"\nFitness costo",fitCost,"\n Recorrí" ,
+              robot.distanciaRecorrida, "\n Usos de la camara",robot.usosCamara,"\n Costo de usar la camara",robot.camara.consumo,"Watts","\n Usos del motor",robot.usosMotor)
         self.valores_Fitness.append(robFitness)
     def cruce(self):
         padre=0

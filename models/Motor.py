@@ -2,13 +2,13 @@ class Motor:
     def __init__(self,tipoMotor):
         if tipoMotor == 1:
             self.consumo = 7
-            self.costo = 25
+            self.costo = 5
             self.potencia = 1
         elif tipoMotor == 2:
             self.consumo = 14
-            self.costo = 35
+            self.costo = 7
             self.potencia = 2
         else:
             self.consumo = 21
-            self.costo = 50
+            self.costo = 9
             self.potencia = 3

@@ -27,7 +27,6 @@ class MainController:
         #         print(com)
         #     print("\n")
         while fitness < 240:
-            print(fitness)
             poblacioActiva = get_poblacion_activa(self.generacionActual)
             if (len(poblacioActiva) == 0):
                 for rob in self.generacionActual:
@@ -37,7 +36,9 @@ class MainController:
                 fitness = resultadosCruce[0]
                 self.generacionActual = resultadosCruce[1]
 
-
             for rob in poblacioActiva:
                 Realizar_Siguiente_Accion(rob, self.terreno)
 
+    def mostrarRobots(self):
+        for rob in self.generacionActual:
+            self.main_view.updateImg(rob.posicionActual)
