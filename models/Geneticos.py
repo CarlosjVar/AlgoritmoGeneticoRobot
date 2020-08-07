@@ -35,7 +35,6 @@ class Geneticos:
         while mutacionesActuales<indiceMutacion:
             robot = self.newGen[random.randint(0,9)]
             if flip(0.5):
-                print("mutacionsota")
                 self.mutaciones(robot)
                 mutacionesActuales+=1
 
