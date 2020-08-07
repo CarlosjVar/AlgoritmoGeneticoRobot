@@ -92,7 +92,7 @@ class Geneticos:
         i=random.randint(0,2)
         if i == 0:
             #mutar software
-            o = random.randint(0,1)
+            o = random.randint(0,3)
             if o == 0 :
                 #cambiar filas
                 filaI=random.randint(0,5)
@@ -109,6 +109,10 @@ class Geneticos:
                     columnaII = random.randint(0, 5)
                 for comp in robot.comportamiento.comportamiento:
                     comp[columnaI] ,compcolumnaII = comp[columnaII],comp[columnaI]
+            elif i == 3:
+                #swap columnas fila
+
+                pass
             else :
                 #Crear nueva fila de comportamiento
                 fila =random.randint (0,5)
