@@ -26,7 +26,8 @@ class MainController:
         #     for com in individuo.comportamiento.comportamiento:
         #         print(com)
         #     print("\n")
-        while fitness < 240:
+        while fitness < 170:
+            print(fitness)
             poblacioActiva = get_poblacion_activa(self.generacionActual)
             if (len(poblacioActiva) == 0):
                 for rob in self.generacionActual:
@@ -35,7 +36,6 @@ class MainController:
                 resultadosCruce = crearNuevaGen(self.generacionActual)
                 fitness = resultadosCruce[0]
                 self.generacionActual = resultadosCruce[1]
-
             for rob in poblacioActiva:
                 Realizar_Siguiente_Accion(rob, self.terreno)
 

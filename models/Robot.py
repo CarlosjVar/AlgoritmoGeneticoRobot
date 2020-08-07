@@ -115,7 +115,6 @@ class Robot:
             self.bateria.capacidad-=self.camara.consumo
             return diccEspacios
         elif(self.camara.numero_espacios==2):
-            self.bateria.capacidad -= 3
             diccEspacios["Norte"] = [[self.posicionActual[0] - 1,self.posicionActual[1]],
                                      [self.posicionActual[0] - 2,self.posicionActual[1]]]
             diccEspacios["Oeste"] = [[self.posicionActual[0],self.posicionActual[1] - 1],
@@ -127,7 +126,6 @@ class Robot:
             self.bateria.capacidad -= self.camara.consumo
             return diccEspacios
         elif(self.camara.numero_espacios==3):
-            self.bateria.capacidad -= 5
             diccEspacios["Norte"] = [[self.posicionActual[0] - 1,self.posicionActual[1]],
                                      [self.posicionActual[0] - 2,self.posicionActual[1]],
                                      [self.posicionActual[0] - 3,self.posicionActual[1]]]
