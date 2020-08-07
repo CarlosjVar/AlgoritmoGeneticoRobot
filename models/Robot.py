@@ -25,7 +25,6 @@ class Robot:
             self.id= uuid.uuid1()
             self.usosCamara = 0
         else:
-            #TODO: SI PETA ES AQUÍ
             self.comportamiento= Comportamiento()
             self.comportamiento.comportamiento   = padre.comportamiento.comportamiento[0:len(padre.comportamiento.comportamiento)//2] + madre.comportamiento.comportamiento[len(padre.comportamiento.comportamiento)//2:len(padre.comportamiento.comportamiento)]
             if random.randint(1,2) == 1:

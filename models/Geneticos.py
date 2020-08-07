@@ -3,6 +3,9 @@ import random
 import numpy as np
 from operator import itemgetter
 from helpers import flip
+from models.Bateria import Bateria
+from models.Camara import Camara
+from models.Motor import Motor
 from models.Robot import Robot
 indiceMutacion= 3
 objetivo = (0,19)
@@ -28,8 +31,13 @@ class Geneticos:
             self.newGen.append(listSorted[i]["Robot"])
         while len(self.newGen)<10:
             self.cruce()
-        print(len(self.newGen))
-
+        mutacionesActuales=0
+        while mutacionesActuales<indiceMutacion:
+            robot = self.newGen[random.randint(0,9)]
+            if flip(0.5):
+                print("mutacionsota")
+                self.mutaciones(robot)
+                mutacionesActuales+=1
 
     def fitness(self,robot):
         distancia = self.distancia_Al_Objetivo(robot)
@@ -70,8 +78,6 @@ class Geneticos:
     #TODO: Analizar caso spawn cercano al objetivo
     def fitness_CostoRecorrido(self,costoRecorrido):
         return 1300//costoRecorrido
-
-    #TODO: Analizar caso spawn cercano al objetivo
     def fitness_Travelled(self,travelledDist):
         return 1100//travelledDist
     def fitness_Hardware(self,robot):
@@ -83,8 +89,34 @@ class Geneticos:
             return  bateria.capacidad//15
         elif(bateria.tipo_Bateria==3):
             return  bateria.capacidad//20
-
-
+    def mutaciones(self,robot):
+        i=random.randint(0,1)
+        if i == 0:
+            #mutar software
+            o = random.randint(0,1)
+            if o == 0 :
+                #cambiar filas
+                filaI=random.randint(0,5)
+                filaII = filaI
+                while filaII == filaI:
+                    filaII = random.randint(0,5)
+                robot.comportamiento.comportamiento[filaI],robot.comportamiento.comportamiento[filaII]= robot.comportamiento.comportamiento[filaII],robot.comportamiento.comportamiento[filaI]
+            else:
+                #TODO: ESTO SEGURO PETA
+                #cambiar columnas
+                pass
+        else:
+            # mutar hardware
+            u = random.randint(0,2)
+            if u == 0:
+                #cambiar motor
+                robot.motor = Motor(random.randint(1,3))
+            elif u == 1:
+                #cambiar bateria
+                robot.bateria = Bateria(random.randint(1,3))
+            else:
+                #cambiar motor
+                robot.camara = Camara(random.randint(1,3))
 def Realizar_Siguiente_Accion(robot,terreno):
     campos_Vision = robot.revisar_Alrededor()
     accion = robot.accion(campos_Vision,terreno)
