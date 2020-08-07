@@ -7,7 +7,7 @@ from models.Bateria import Bateria
 from models.Camara import Camara
 from models.Motor import Motor
 from models.Robot import Robot
-indiceMutacion= 3
+indiceMutacion= 6
 objetivo = (0,19)
 class Geneticos:
     def __init__(self):
@@ -90,7 +90,7 @@ class Geneticos:
         elif(bateria.tipo_Bateria==3):
             return  bateria.capacidad//20
     def mutaciones(self,robot):
-        i=random.randint(0,1)
+        i=random.randint(0,2)
         if i == 0:
             #mutar software
             o = random.randint(0,1)
@@ -101,10 +101,25 @@ class Geneticos:
                 while filaII == filaI:
                     filaII = random.randint(0,5)
                 robot.comportamiento.comportamiento[filaI],robot.comportamiento.comportamiento[filaII]= robot.comportamiento.comportamiento[filaII],robot.comportamiento.comportamiento[filaI]
-            else:
-                #TODO: ESTO SEGURO PETA
+            elif i == 2:
                 #cambiar columnas
-                pass
+                #TODO: ESTO SEGURO PETA
+                columnaI = random.randint(0, 5)
+                columnaII = columnaI
+                while columnaII == columnaI:
+                    columnaII = random.randint(0, 5)
+                for comp in robot.comportamiento.comportamiento:
+                    comp[columnaI] ,compcolumnaII = comp[columnaII],comp[columnaI]
+            else :
+                #Crear nueva fila de comportamiento
+                fila =random.randint (0,5)
+                sumaNormalizar = 0
+                for e in range(6):
+                    rand = random.random()
+                    robot.comportamiento.comportamiento[fila][e] = rand
+                    sumaNormalizar += rand
+                for e in range(6):
+                    robot.comportamiento.comportamiento[fila][e] = robot.comportamiento.comportamiento[fila][e] / sumaNormalizar
         else:
             # mutar hardware
             u = random.randint(0,2)
