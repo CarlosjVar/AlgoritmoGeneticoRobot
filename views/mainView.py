@@ -11,6 +11,15 @@ class MainView:
         self.btn_container.grid(row=0, column=1)
         self.iniciar_btn = Button(self.btn_container, text="presioname")
         self.iniciar_btn.grid(row=0, column=0)
+        # Algorithm information
+        self.algorithm_info_container = Frame(root_window)
+        self.algorithm_info_container.grid(row=1, column=0, sticky="W")
+        # Fitness label
+        self.generation_fitness_label = Label(self.algorithm_info_container, text="Fitness: ", anchor=W, justify=LEFT)
+        self.generation_fitness_label.grid(row=0, column=0)
+        # Generations label
+        self.generation_number_label = Label(self.algorithm_info_container, text="Generaciones: ", anchor=W, justify=LEFT)
+        self.generation_number_label.grid(row=1, column=0)
         self.terrenoStored = terreno
         # Cargar imagenes
         self.terreno_normal = ImageTk.PhotoImage(Image.open("assets/normal.png"))
@@ -50,6 +59,7 @@ class MainView:
 
     def updateImg(self,cordenadas):
         self.terrain_grid[cordenadas[0]][cordenadas[1]].itemconfig(self.terrain_img_grid[cordenadas[0]][cordenadas[1]],image=self.robot)
+
     def reiniciar(self):
         for fila_terreno in range(20):
             for bloque in range(20):
