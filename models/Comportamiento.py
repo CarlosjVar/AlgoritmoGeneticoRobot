@@ -1,38 +1,49 @@
-import numpy as np
 import random
+from helpers import flip
 
 class Comportamiento:
-    ##Indices de comportamintos
-    #Las filas de la matriz representan la acción anterior y las columnas la accion a elegir
-    #0 Mover izquierda indifente
-    #1 Mover derecha indifente
-    #2 Mover frente indifente
-    #3 Preferir terreno menor coste
-    #4 Preferir terreno mayor coste
-    #5 Preferir direccion objetivo
-    def __init__(self):
+    """Clase comportamiento para manejar las distintas acciones del robot
+        Indices de comportamintos
+        Las filas de la matriz representan la acción anterior y las columnas la accion a elegir
+        - 0 Mover izquierda indifente
+        - 1 Mover derecha indifente
+        - 2 Mover frente indifente
+        - 3 Preferir terreno menor coste
+        - 4 Preferir terreno mayor coste
+        - 5 Preferir direccion objetivo
+    """
 
+    def __init__(self):
+        # Inicializar comportamiento (Cadena de markov)
         self.comportamiento = [[random.random() for i in range(6)] for i in range(6)]
         for i in range(6):
-            sumaNormalizar = 0
+            suma_normalizar = 0
             for o in range(6):
                 rand = random.random()
                 self.comportamiento[i][o] = rand
-                sumaNormalizar += rand
+                suma_normalizar += rand
             for o in range(6):
-                self.comportamiento[i][o] = self.comportamiento[i][o] / sumaNormalizar
-    def decidirAccion(self,accionAnterior,campos_Vision,terreno):
+                self.comportamiento[i][o] = self.comportamiento[i][o] / suma_normalizar
+
+    def decidirAccion(self, accionAnterior, campos_Vision, terreno):
+        """Decide la siguiente accion del robot
+
+        :param accionAnterior: La accion que realizo anter
+        :param campos_Vision: Los campos que puede observar el robot
+        :param terreno: El terreno sobre que el que se esta trabajando
+        :return: La accion que gano y su direccion
+        """
         costoNorte = 0
         costoSur = 0
         costoEste = 0
         costoOeste = 0
-        camposNorte=campos_Vision["Norte"]
-        camposSur=campos_Vision["Sur"]
-        camposEste=campos_Vision["Este"]
-        camposOeste=campos_Vision["Oeste"]
+        camposNorte = campos_Vision["Norte"]
+        camposSur = campos_Vision["Sur"]
+        camposEste = campos_Vision["Este"]
+        camposOeste = campos_Vision["Oeste"]
         for tupleEspacio in camposNorte:
-            if(tupleEspacio[0]>=0 and tupleEspacio[0]<20) and (tupleEspacio[1]>=0 and tupleEspacio[1]<20):
-                costoNorte+=terreno[tupleEspacio[0]][tupleEspacio[1]]
+            if (tupleEspacio[0] >= 0 and tupleEspacio[0] < 20) and (tupleEspacio[1] >= 0 and tupleEspacio[1] < 20):
+                costoNorte += terreno[tupleEspacio[0]][tupleEspacio[1]]
             else:
                 break
         for tupleEspacio in camposSur:
@@ -54,11 +65,11 @@ class Comportamiento:
         if accionAnterior == -1:
             acciones = self.comportamiento[random.randint(0,5)]
             while accionGanadora == -1:
-                accionGanadora = self.verificarProbabilidad(acciones)
+                accionGanadora = self.verificar_probabilidad(acciones)
         else:
             acciones = self.comportamiento[accionAnterior]
             while accionGanadora == -1:
-                accionGanadora = self.verificarProbabilidad(acciones)
+                accionGanadora = self.verificar_probabilidad(acciones)
         direccion = ""
         #Prefirió menor coste
         if(accionGanadora == 3):
@@ -91,13 +102,11 @@ class Comportamiento:
                 maxi = costoOeste
                 direccion = "Oeste"
         return [accionGanadora,direccion]
-    def verificarProbabilidad(self,acciones):
+
+    def verificar_probabilidad(self, acciones):
+        """Verifica si la probabilidad de alguna accion se cumple
+        """
         for i in range(len(acciones)):
-            if self.flip(acciones[i]):
+            if flip(acciones[i]):
                 return i
         return -1
-    def flip(self,prob):
-        if random.random() < prob:
-            return True
-        else:
-            return False
