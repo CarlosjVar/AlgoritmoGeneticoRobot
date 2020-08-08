@@ -11,7 +11,7 @@ from models.Robot import Robot
 indiceMutacion= 12
 objetivo = (0,19)
 class Geneticos:
-    minTime=0
+    minTime = 0
     maxTime = 0
     def __init__(self):
         self.valores_Fitness = []
@@ -48,10 +48,6 @@ class Geneticos:
         fitBatt=self.fitness_Battery(robot.bateria)
         fitCost=self.fitness_CostoRecorrido(robot.costoRecorrido)
         robFitness= {}
-        if Geneticos.minTime > robot.timer:
-            Geneticos.minTime = robot.timer
-        if Geneticos.maxTime < robot.timer:
-            Geneticos.maxTime = robot.timer
         robFitness["Robot"] = robot
         robFitness["Fitness"] = fitDist+fitTravelled+fitHardw+fitBatt+fitCost
         self.valores_Fitness.append(robFitness)
@@ -145,8 +141,6 @@ class Geneticos:
                 robot.camara = Camara(random.randint(1,3))
 def Realizar_Siguiente_Accion(robot,terreno):
     campos_Vision = robot.revisar_Alrededor()
-    if robot.distanciaRecorrida == 0:
-        robot.timer = time.time()
     accion = robot.accion(campos_Vision,terreno)
     robot.ultimaAccion = accion[0]
     #accion = [ACCION,DIRECCION(DE SER NECESARIO)]
@@ -238,13 +232,12 @@ def Realizar_Siguiente_Accion(robot,terreno):
         robot.bateria.capacidad=0
         robot.activo=False
         robot.completado=True
-        robot.timer = time.time()-robot.timer
+
     #Robot llegó a su destino , por tanto cesa sus funciones
     if(robot.posicionActual[0] == objetivo[0] and robot.posicionActual[1] == objetivo[1] ):
-        print("Robot en objetivo")
         robot.completado=True
         robot.activo=False
-        robot.timer = time.time()-robot.timer
+
 def get_poblacion_activa(generacion):
     poblacionActiva = []
     for robot in generacion:

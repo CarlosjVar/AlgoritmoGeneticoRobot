@@ -46,7 +46,7 @@ class MainController:
         for robot in self.generacionActual:
             self.main_view.updateImg(robot.posicionActual)
         print(len(self.generacionesPasadas))
-        print(Geneticos.minTime," <----- Minimo", "Maximo ------>",Geneticos.maxTime)
+
 
     def mostrarRobots(self):
         for rob in self.generacionActual:
