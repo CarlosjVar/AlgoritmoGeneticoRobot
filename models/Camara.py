@@ -1,12 +1,12 @@
 class Camara:
 
-    def __init__(self, tipocamara):
-        if tipocamara == 1:
+    def __init__(self, tipo_camara):
+        if tipo_camara == 1:
             self.consumo = 0
             self.costo = 15
             self.numero_espacios = 1
             self.tipo_camara = 1
-        elif tipocamara == 2:
+        elif tipo_camara == 2:
             self.consumo = 1
             self.costo = 20
             self.numero_espacios = 2

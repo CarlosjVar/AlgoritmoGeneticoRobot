@@ -5,9 +5,10 @@ from models.Camara import Camara
 from models.Motor import Motor
 from models.Comportamiento import Comportamiento
 
+
 class Robot:
     def __init__(self,padre=0,madre=0):
-        if padre==0:
+        if padre == 0:
             self.usosMotor = 0
             self.comportamiento = Comportamiento()
             self.camara = Camara(random.randint(1,3))
@@ -58,6 +59,7 @@ class Robot:
     def accion(self, bloques_adyacentes,terreno):
         accionRealizar =  self.comportamiento.decidirAccion(self.ultimaAccion,bloques_adyacentes,terreno)
         return accionRealizar
+
     def mover_Adelante(self,tipoTerreno):
         self.distanciaRecorrida+=1
         self.posicionActual[0] = self.posicionActual[0] - 1
@@ -78,6 +80,7 @@ class Robot:
             self.bateria.capacidad -=14
         else:
             self.bateria.capacidad-=21
+
     def mover_Atras(self,tipoTerreno):
         self.distanciaRecorrida+=1
         self.posicionActual[0] = self.posicionActual[0] + 1
@@ -88,6 +91,7 @@ class Robot:
             self.bateria.capacidad -= 14
         else:
             self.bateria.capacidad-=21
+
     def mover_Izquierda(self,tipoTerreno):
         self.distanciaRecorrida+=1
         self.posicionActual[1] = self.posicionActual[1] - 1
@@ -98,6 +102,7 @@ class Robot:
             self.bateria.capacidad -=14
         elif tipoTerreno == 3:
             self.bateria.capacidad-=21
+
     def revisar_Alrededor(self):
         diccEspacios={}
         if (self.camara.numero_espacios==1):

@@ -1,6 +1,7 @@
 from tkinter import *
 from PIL import ImageTk, Image
 
+
 class MainView:
 
     def __init__(self, root_window, terreno):
@@ -10,13 +11,13 @@ class MainView:
         self.btn_container.grid(row=0, column=1)
         self.iniciar_btn = Button(self.btn_container, text="presioname")
         self.iniciar_btn.grid(row=0, column=0)
-        self.terrenoStored=terreno
+        self.terrenoStored = terreno
         # Cargar imagenes
         self.terreno_normal = ImageTk.PhotoImage(Image.open("assets/normal.png"))
         self.terreno_moderado = ImageTk.PhotoImage(Image.open("assets/moderado.png"))
         self.terreno_dificil = ImageTk.PhotoImage(Image.open("assets/dificil.png"))
         self.terreno_bloqueado = ImageTk.PhotoImage(Image.open("assets/bloqueado.png"))
-        self.robot= ImageTk.PhotoImage(Image.open("assets/robot.png"))
+        self.robot = ImageTk.PhotoImage(Image.open("assets/robot.png"))
         # Display del terreno
         self.terrain_grid = [[0 for j in range(20)] for i in range(20)]
         self.terrain_img_grid = [[0 for j in range(20)] for i in range(20)]
