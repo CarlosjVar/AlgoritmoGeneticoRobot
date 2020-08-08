@@ -10,11 +10,13 @@ class MainView:
         self.btn_container.grid(row=0, column=1)
         self.iniciar_btn = Button(self.btn_container, text="presioname")
         self.iniciar_btn.grid(row=0, column=0)
+        self.terrenoStored=terreno
         # Cargar imagenes
         self.terreno_normal = ImageTk.PhotoImage(Image.open("assets/normal.png"))
         self.terreno_moderado = ImageTk.PhotoImage(Image.open("assets/moderado.png"))
         self.terreno_dificil = ImageTk.PhotoImage(Image.open("assets/dificil.png"))
         self.terreno_bloqueado = ImageTk.PhotoImage(Image.open("assets/bloqueado.png"))
+        self.robot= ImageTk.PhotoImage(Image.open("assets/robot.png"))
         # Display del terreno
         self.terrain_grid = [[0 for j in range(20)] for i in range(20)]
         self.terrain_img_grid = [[0 for j in range(20)] for i in range(20)]
@@ -46,4 +48,16 @@ class MainView:
                     self.terrain_grid[fila_terreno][bloque] = bloque_canvas
 
     def updateImg(self,cordenadas):
-        self.terrain_grid[cordenadas[0]][cordenadas[1]].itemconfig(self.terrain_img_grid[cordenadas[0]][cordenadas[1]],image=self.terreno_bloqueado)
+        self.terrain_grid[cordenadas[0]][cordenadas[1]].itemconfig(self.terrain_img_grid[cordenadas[0]][cordenadas[1]],image=self.robot)
+    def reiniciar(self):
+        for fila_terreno in range(20):
+            for bloque in range(20):
+                if self.terrenoStored[fila_terreno][bloque] == 1:
+                    self.terrain_grid[fila_terreno][bloque].itemconfig(self.terrain_img_grid[fila_terreno][bloque], image=self.terreno_normal)
+                elif self.terrenoStored[fila_terreno][bloque] == 2:
+                    self.terrain_grid[fila_terreno][bloque].itemconfig(self.terrain_img_grid[fila_terreno][bloque], image=self.terreno_moderado)
+                elif self.terrenoStored[fila_terreno][bloque] == 3:
+                    self.terrain_grid[fila_terreno][bloque].itemconfig(self.terrain_img_grid[fila_terreno][bloque], image=self.terreno_dificil)
+                else:
+                    self.terrain_grid[fila_terreno][bloque].itemconfig(self.terrain_img_grid[fila_terreno][bloque], image=self.terreno_bloqueado)
+

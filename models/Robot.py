@@ -5,7 +5,6 @@ from models.Camara import Camara
 from models.Motor import Motor
 from models.Comportamiento import Comportamiento
 
-
 class Robot:
     def __init__(self,padre=0,madre=0):
         if padre==0:
@@ -27,7 +26,7 @@ class Robot:
             self.timer = 0
         else:
             self.comportamiento= Comportamiento()
-            self.comportamiento.comportamiento   = padre.comportamiento.comportamiento[0:len(padre.comportamiento.comportamiento)//2] + madre.comportamiento.comportamiento[len(padre.comportamiento.comportamiento)//2:len(padre.comportamiento.comportamiento)]
+            self.comportamiento.comportamiento= padre.comportamiento.comportamiento[0:len(padre.comportamiento.comportamiento)//2] + madre.comportamiento.comportamiento[len(padre.comportamiento.comportamiento)//2:len(padre.comportamiento.comportamiento)]
             if random.randint(1,2) == 1:
                 self.bateria = Bateria(padre.bateria.tipo_Bateria)
                 self.motor = Motor(madre.motor.potencia)
@@ -45,8 +44,7 @@ class Robot:
             self.completado = False
             self.costoRecorrido = 0
             self.id = uuid.uuid1()
-            self.usosCamara = 0
-            self.usosMotor = 0
+            self.timer = 0
 
 
     def reinicarStats(self):
@@ -63,7 +61,6 @@ class Robot:
         accionRealizar =  self.comportamiento.decidirAccion(self.ultimaAccion,bloques_adyacentes,terreno)
         return accionRealizar
     def mover_Adelante(self,tipoTerreno):
-        self.usosMotor+=1
         self.distanciaRecorrida+=1
         self.posicionActual[0] = self.posicionActual[0] - 1
         if tipoTerreno == 1:
@@ -75,8 +72,8 @@ class Robot:
 
     def mover_Derecha(self,tipoTerreno):
         self.distanciaRecorrida+=1
-        self.usosMotor+=1
         self.posicionActual[1] = self.posicionActual[1] + 1
+        self.recorrido.append(self.posicionActual)
         if tipoTerreno == 1:
             self.bateria.capacidad-=7
         elif tipoTerreno == 2:
@@ -85,8 +82,8 @@ class Robot:
             self.bateria.capacidad-=21
     def mover_Atras(self,tipoTerreno):
         self.distanciaRecorrida+=1
-        self.usosMotor+=1
         self.posicionActual[0] = self.posicionActual[0] + 1
+        self.recorrido.append(self.posicionActual)
         if tipoTerreno == 1:
             self.bateria.capacidad-=7
         elif tipoTerreno == 2:
@@ -95,8 +92,8 @@ class Robot:
             self.bateria.capacidad-=21
     def mover_Izquierda(self,tipoTerreno):
         self.distanciaRecorrida+=1
-        self.usosMotor+=1
         self.posicionActual[1] = self.posicionActual[1] - 1
+        self.recorrido.append(self.posicionActual)
         if tipoTerreno == 1:
             self.bateria.capacidad-=7
         elif tipoTerreno == 2:
@@ -104,10 +101,8 @@ class Robot:
         elif tipoTerreno == 3:
             self.bateria.capacidad-=21
     def revisar_Alrededor(self):
-        self.usosCamara+=1
         diccEspacios={}
         if (self.camara.numero_espacios==1):
-
             diccEspacios["Norte"] = [[self.posicionActual[0]-1,self.posicionActual[1]]]
             diccEspacios["Oeste"] = [[self.posicionActual[0],self.posicionActual[1]-1]]
             diccEspacios["Sur"] = [[self.posicionActual[0]+1,self.posicionActual[1]]]
