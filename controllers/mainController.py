@@ -35,7 +35,9 @@ class MainController:
                 self.generacionActual = resultadosCruce[1]
             for rob in poblacioActiva:
                 realizar_siguiente_accion(rob, self.terreno)
+        # Set fitness label
         print(fitness)
+        self.main_view.generation_fitness_label.config(text="Fitness: " + str(fitness))
         for robot in self.generacionActual:
             robot.reinicarStats()
         poblacioActiva = get_poblacion_activa(self.generacionActual)
@@ -45,7 +47,9 @@ class MainController:
                 realizar_siguiente_accion(rob, self.terreno)
         for robot in self.generacionActual:
             self.main_view.updateImg(robot.posicionActual)
+        # Set generations number
         print(len(self.generacionesPasadas))
+        self.main_view.generation_number_label.config(text="Generaciones: " + str(len(self.generacionesPasadas)))
 
 
     def mostrarRobots(self):

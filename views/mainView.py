@@ -9,7 +9,7 @@ class MainView:
         self.main_container.grid(row=0, column=0)
         self.btn_container = Frame(root_window)
         self.btn_container.grid(row=0, column=1)
-        self.iniciar_btn = Button(self.btn_container, text="presioname")
+        self.iniciar_btn = Button(self.btn_container, text="Iniciar algoritmo")
         self.iniciar_btn.grid(row=0, column=0)
         # Algorithm information
         self.algorithm_info_container = Frame(root_window)
