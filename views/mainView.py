@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import messagebox
 from PIL import ImageTk, Image
 
 
@@ -20,6 +21,17 @@ class MainView:
         # Generations label
         self.generation_number_label = Label(self.algorithm_info_container, text="Generaciones: ", anchor=W, justify=LEFT)
         self.generation_number_label.grid(row=1, column=0)
+        # Generation input group
+        self.generation_input_group = Frame(self.algorithm_info_container)
+        self.generation_input_group.grid(row=0, column=1)
+        # Label para entrada de generacion
+        self.generation_input_label = Label(self.generation_input_group, text="Generacion: ")
+        self.generation_input_label.grid(row=0, column=0)
+        self.generation_input_field = Entry(self.generation_input_group)
+        self.generation_input_field.grid(row=0, column=1)
+        # Search generation btn
+        self.search_generation_btn = Button(self.generation_input_group, text="Buscar generacion")
+        self.search_generation_btn.grid(row=0, column=2)
         self.terrenoStored = terreno
         # Cargar imagenes
         self.terreno_normal = ImageTk.PhotoImage(Image.open("assets/normal.png"))
@@ -56,6 +68,9 @@ class MainView:
                     # Guardar referencia en terrain_grid
                     self.terrain_img_grid[fila_terreno][bloque] = bloque_canvas.create_image(0, 0, image=self.terreno_bloqueado, anchor=NW)
                     self.terrain_grid[fila_terreno][bloque] = bloque_canvas
+
+    def show_error_message(self, message):
+        messagebox.showerror("ERROR", message)
 
     def updateImg(self,cordenadas):
         self.terrain_grid[cordenadas[0]][cordenadas[1]].itemconfig(self.terrain_img_grid[cordenadas[0]][cordenadas[1]],image=self.robot)

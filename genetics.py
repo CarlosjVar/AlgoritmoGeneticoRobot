@@ -8,6 +8,7 @@ def realizar_siguiente_accion(robot, terreno):
     :param terreno: El terreno sobre el que se esta trabajando
     :return: No retorna nada
     """
+    # TODO: Se habia cambiado index en comparacion de potencia
     objetivo = (0, 19)
     campos_Vision = robot.revisar_Alrededor()
     accion = robot.accion(campos_Vision,terreno)
@@ -16,7 +17,7 @@ def realizar_siguiente_accion(robot, terreno):
     if accion[0] == 0:
         if robot.posicionActual[1] == 0:
             pass
-        elif robot.motor.potencia < terreno[robot.posicionActual[0]][robot.posicionActual[1] - 1]:
+        elif robot.motor.potencia < terreno[robot.posicionActual[0]][robot.posicionActual[1]]:
             robot.activo = False
         else:
             robot.mover_Izquierda(terreno[robot.posicionActual[0]][robot.posicionActual[1]])
@@ -24,7 +25,7 @@ def realizar_siguiente_accion(robot, terreno):
     elif accion[0]  == 1:
         if robot.posicionActual[1] == 19:
             pass
-        elif robot.motor.potencia < terreno[robot.posicionActual[0]][robot.posicionActual[1] + 1]:
+        elif robot.motor.potencia < terreno[robot.posicionActual[0]][robot.posicionActual[1]]:
             robot.activo = False
         else:
             robot.mover_Derecha(terreno[robot.posicionActual[0]][robot.posicionActual[1]])
@@ -33,7 +34,7 @@ def realizar_siguiente_accion(robot, terreno):
     elif accion[0]  == 2:
         if robot.posicionActual[0] == 0:
             pass
-        elif robot.motor.potencia < terreno[robot.posicionActual[0] - 1][robot.posicionActual[1]]:
+        elif robot.motor.potencia < terreno[robot.posicionActual[0]][robot.posicionActual[1]]:
             robot.activo = False
 
         else:
@@ -43,7 +44,7 @@ def realizar_siguiente_accion(robot, terreno):
         if accion[1] == "Norte":
             if robot.posicionActual[0] == 0:
                 pass
-            elif robot.motor.potencia < terreno[robot.posicionActual[0] - 1][robot.posicionActual[1]]:
+            elif robot.motor.potencia < terreno[robot.posicionActual[0]][robot.posicionActual[1]]:
                 robot.activo = False
             else:
                 robot.mover_Adelante(terreno[robot.posicionActual[0]][robot.posicionActual[1]])
@@ -51,7 +52,7 @@ def realizar_siguiente_accion(robot, terreno):
         elif accion[1] == "Oeste":
             if robot.posicionActual[1] == 0:
                 pass
-            elif robot.motor.potencia < terreno[robot.posicionActual[0]][robot.posicionActual[1] - 1]:
+            elif robot.motor.potencia < terreno[robot.posicionActual[0]][robot.posicionActual[1]]:
                 robot.activo = False
             else:
                 robot.mover_Izquierda(terreno[robot.posicionActual[0]][robot.posicionActual[1]])
@@ -59,7 +60,7 @@ def realizar_siguiente_accion(robot, terreno):
         elif accion[1] == "Este":
             if robot.posicionActual[1] == 19:
                 pass
-            elif robot.motor.potencia < terreno[robot.posicionActual[0]][robot.posicionActual[1] + 1]:
+            elif robot.motor.potencia < terreno[robot.posicionActual[0]][robot.posicionActual[1]]:
                 robot.activo = False
             else:
                 robot.mover_Derecha(terreno[robot.posicionActual[0]][robot.posicionActual[1]])
@@ -68,7 +69,7 @@ def realizar_siguiente_accion(robot, terreno):
         else:
             if robot.posicionActual[0] == 19 :
                 pass
-            elif robot.motor.potencia < terreno[robot.posicionActual[0]+1][robot.posicionActual[1]]:
+            elif robot.motor.potencia < terreno[robot.posicionActual[0]][robot.posicionActual[1]]:
                 robot.activo = False
             else:
                 robot.mover_Atras(terreno[robot.posicionActual[0]][robot.posicionActual[1]])
@@ -76,6 +77,7 @@ def realizar_siguiente_accion(robot, terreno):
     # DIRECCIÓN AL OBJETIVO
     elif accion[0] == 5:
         #Norte
+        # TODO: Agregar validacion de moto/terreno
         if robot.posicionActual[0] > objetivo[0]:
             robot.mover_Adelante(terreno[robot.posicionActual[0]][robot.posicionActual[1]])
             robot.costoRecorrido += terreno[robot.posicionActual[0] + 1][robot.posicionActual[1]]
