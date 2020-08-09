@@ -42,6 +42,7 @@ class MainView:
         self.robot_input_label.grid(row=0,column=0)
         self.robot_input_combo= Combobox(self.robot_input_group,state="readonly")
         self.robot_input_combo.grid(row=0,column=1)
+        self.robot_input_combo["values"] = [i for i in range(1,11)]
         #Search robot btn
         self.search_robot_btn= Button(self.robot_input_group,state=DISABLED,text="Buscar robot")
         self.search_robot_btn.grid(row=0,column=2)

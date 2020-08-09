@@ -52,6 +52,7 @@ class Geneticos:
         robFitness = {}
         robFitness["Robot"] = robot
         robFitness["Fitness"] = fitDist+fitTravelled+fitHardw+fitBatt+fitCost
+        print("hola")
         self.valores_Fitness.append(robFitness)
 
     def cruce(self):

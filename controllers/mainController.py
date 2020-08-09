@@ -3,6 +3,7 @@ from views.mainView import MainView
 from models.Robot import Robot
 from helpers import cargar_terreno
 from genetics import get_poblacion_activa, crearNuevaGen, realizar_siguiente_accion
+from views.robotView import robotView
 
 
 class MainController:
@@ -17,6 +18,7 @@ class MainController:
         # Set event listeners
         self.main_view.iniciar_btn.bind("<Button-1>", self.iniciar_busqueda_camino)
         self.main_view.search_generation_btn.bind("<Button-1>", self.buscar_generacion)
+        self.main_view.search_robot_btn.bind("<Button-1>",self.buscar_robot)
     def run(self):
         self.root.title("Path finder robot")
         self.root.mainloop()
@@ -28,6 +30,7 @@ class MainController:
         while fitness < 175:
             poblacioActiva = get_poblacion_activa(self.generacionActual)
             if len(poblacioActiva) == 0:
+                print("Generacion desecha")
                 for rob in self.generacionActual:
                     # self.main_view.updateImg(rob.posicionActual)
                     pass
@@ -67,6 +70,17 @@ class MainController:
         for robot in self.generation_elegida:
             self.main_view.updateImg(robot.posicionActual)
         self.main_view.search_robot_btn["state"]='normal'
+    def buscar_robot(self,event):
+        rootRobot = tkinter.Tk()
+        rootRobot.title("Información del robot")
+        indiceRobot=int(self.main_view.robot_input_combo.get())-1
+        print(indiceRobot)
+        robot = self.generation_elegida[indiceRobot]
+        viewRobot = robotView(rootRobot,robot)
+
+        rootRobot.mainloop()
+
+        pass
     def mostrarRobots(self):
         for rob in self.generacionActual:
             self.main_view.updateImg(rob.posicionActual)
