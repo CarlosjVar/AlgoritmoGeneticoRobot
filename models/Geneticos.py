@@ -8,7 +8,7 @@ from models.Motor import Motor
 from models.Robot import Robot
 
 
-indiceMutacion = 12
+indiceMutacion = 6
 objetivo = (0,19)
 class Geneticos:
     minTime = 0
@@ -45,14 +45,11 @@ class Geneticos:
     def fitness(self,robot):
         distancia = self.distancia_Al_Objetivo(robot)
         fitDist = self.fitness_Distancia(distancia)
-        fitTravelled = self.fitness_Travelled(robot.distanciaRecorrida)
         fitHardw = self.fitness_Hardware(robot)
         fitBatt = self.fitness_Battery(robot.bateria)
-        fitCost = self.fitness_CostoRecorrido(robot.costoRecorrido)
         robFitness = {}
         robFitness["Robot"] = robot
-        robFitness["Fitness"] = fitDist+fitTravelled+fitHardw+fitBatt+fitCost
-        print("hola")
+        robFitness["Fitness"] = fitDist+fitHardw+fitBatt
         self.valores_Fitness.append(robFitness)
 
     def cruce(self):
@@ -80,10 +77,10 @@ class Geneticos:
 
     #TODO: Analizar caso spawn cercano al objetivo
     def fitness_CostoRecorrido(self,costoRecorrido):
-        return 1300 // costoRecorrido
+        return 100 // costoRecorrido
 
     def fitness_Travelled(self,travelledDist):
-        return 1100//travelledDist
+        return 100//travelledDist
 
     def fitness_Hardware(self,robot):
         return 1100//(robot.motor.costo+robot.camara.costo+robot.bateria.costo)
@@ -107,7 +104,10 @@ class Geneticos:
                 filaII = filaI
                 while filaII == filaI:
                     filaII = random.randint(0,5)
-                robot.comportamiento.comportamiento[filaI],robot.comportamiento.comportamiento[filaII]= robot.comportamiento.comportamiento[filaII],robot.comportamiento.comportamiento[filaI]
+                filI = robot.comportamiento.comportamiento[filaI].copy()
+                filII = robot.comportamiento.comportamiento[filaII].copy()
+                robot.comportamiento.comportamiento[filaI] = filII
+                robot.comportamiento.comportamiento[filaII] = filI
             elif i == 2:
                 #cambiar columnas
                 columnaI = random.randint(0, 5)
@@ -115,7 +115,10 @@ class Geneticos:
                 while columnaII == columnaI:
                     columnaII = random.randint(0, 5)
                 for comp in robot.comportamiento.comportamiento:
-                    comp[columnaI] ,compcolumnaII = comp[columnaII],comp[columnaI]
+                    colI = robot.comportamiento.comportamiento[columnaI].copy()
+                    colII = robot.comportamiento.comportamiento[columnaII].copy()
+                    comp[columnaI] = colII
+                    comp[columnaII] = colI
             elif i == 3:
                 #swap columnas fila
                 fila = random.randint(0, 5)
@@ -125,6 +128,10 @@ class Geneticos:
                     columnaII = random.randint(0, 5)
                 robot.comportamiento.comportamiento[fila][columnaI],robot.comportamiento.comportamiento[fila][columnaII] = \
                 robot.comportamiento.comportamiento[fila][columnaII],robot.comportamiento.comportamiento[fila][columnaI]
+                colI = robot.comportamiento.comportamiento[fila][columnaI].copy()
+                colII = robot.comportamiento.comportamiento[fila][columnaII].copy()
+                robot.comportamiento.comportamiento[fila][columnaI] = colII
+                robot.comportamiento.comportamiento[fila][columnaII] = colI
             else :
                 #Crear nueva fila de comportamiento
                 fila =random.randint (0,5)

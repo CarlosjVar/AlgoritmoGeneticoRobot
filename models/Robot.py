@@ -88,7 +88,7 @@ class Robot:
         if tipoTerreno == 1:
             self.bateria.capacidad-=7
         elif tipoTerreno == 2:
-            self.bateria.capacidad -= 14
+            self.bateria.capacidad-= 14
         else:
             self.bateria.capacidad-=21
 

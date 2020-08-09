@@ -27,12 +27,13 @@ class MainController:
         for i in range(10):
             self.generacionActual.append(Robot())
         fitness = 0
-        while fitness < 175:
+        while fitness < 112:
+            print("\n\n\n\n",fitness)
             poblacioActiva = get_poblacion_activa(self.generacionActual)
             if len(poblacioActiva) == 0:
-                print("Generacion desecha")
+                self.main_view.reiniciar()
                 for rob in self.generacionActual:
-                    # self.main_view.updateImg(rob.posicionActual)
+                    self.main_view.updateImg(rob.posicionActual)
                     pass
                 self.generacionesPasadas.append(self.generacionActual)
                 resultadosCruce = crearNuevaGen(self.generacionActual)
@@ -43,15 +44,20 @@ class MainController:
         # Set fitness label
         print(fitness)
         self.main_view.generation_fitness_label.config(text="Fitness: " + str(fitness))
+        o=0
         for robot in self.generacionActual:
-            robot.reinicarStats()
-        poblacioActiva = get_poblacion_activa(self.generacionActual)
-        while len(poblacioActiva) > 0:
-            poblacioActiva = get_poblacion_activa(self.generacionActual)
-            for rob in poblacioActiva:
-                realizar_siguiente_accion(rob, self.terreno)
-        for robot in self.generacionActual:
-            self.main_view.updateImg(robot.posicionActual)
+            if robot.completado:
+                o+=1
+        print("Llegaron ",o)
+        # for robot in self.generacionActual:
+        #     robot.reinicarStats()
+        # poblacioActiva = get_poblacion_activa(self.generacionActual)
+        # while len(poblacioActiva) > 0:
+        #     poblacioActiva = get_poblacion_activa(self.generacionActual)
+        #     for rob in poblacioActiva:
+        #         realizar_siguiente_accion(rob, self.terreno)
+        # for robot in self.generacionActual:
+        #     self.main_view.updateImg(robot.posicionActual)
         # Set generations number
         print(len(self.generacionesPasadas))
         self.main_view.generation_number_label.config(text="Generaciones: " + str(len(self.generacionesPasadas)))
