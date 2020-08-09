@@ -25,7 +25,7 @@ class MainController:
         for i in range(10):
             self.generacionActual.append(Robot())
         fitness = 0
-        while fitness < 50:
+        while fitness < 175:
             poblacioActiva = get_poblacion_activa(self.generacionActual)
             if len(poblacioActiva) == 0:
                 for rob in self.generacionActual:
@@ -66,7 +66,7 @@ class MainController:
         self.main_view.reiniciar()
         for robot in self.generation_elegida:
             self.main_view.updateImg(robot.posicionActual)
-
+        self.main_view.search_robot_btn["state"]='normal'
     def mostrarRobots(self):
         for rob in self.generacionActual:
             self.main_view.updateImg(rob.posicionActual)
