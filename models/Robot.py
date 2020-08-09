@@ -62,6 +62,7 @@ class Robot:
 
     def mover_Adelante(self,tipoTerreno):
         self.distanciaRecorrida+=1
+        self.recorrido.append([self.posicionActual[0]-1,self.posicionActual[1]])
         self.posicionActual[0] = self.posicionActual[0] - 1
         if tipoTerreno == 1:
             self.bateria.capacidad-=7
@@ -72,8 +73,8 @@ class Robot:
 
     def mover_Derecha(self,tipoTerreno):
         self.distanciaRecorrida+=1
+        self.recorrido.append([self.posicionActual[0],self.posicionActual[1]+1])
         self.posicionActual[1] = self.posicionActual[1] + 1
-        self.recorrido.append(self.posicionActual)
         if tipoTerreno == 1:
             self.bateria.capacidad-=7
         elif tipoTerreno == 2:
@@ -83,8 +84,8 @@ class Robot:
 
     def mover_Atras(self,tipoTerreno):
         self.distanciaRecorrida+=1
+        self.recorrido.append([self.posicionActual[0]+1,self.posicionActual[1]])
         self.posicionActual[0] = self.posicionActual[0] + 1
-        self.recorrido.append(self.posicionActual)
         if tipoTerreno == 1:
             self.bateria.capacidad-=7
         elif tipoTerreno == 2:
@@ -94,6 +95,7 @@ class Robot:
 
     def mover_Izquierda(self,tipoTerreno):
         self.distanciaRecorrida+=1
+        self.recorrido.append([self.posicionActual[0],self.posicionActual[1]-1])
         self.posicionActual[1] = self.posicionActual[1] - 1
         self.recorrido.append(self.posicionActual)
         if tipoTerreno == 1:

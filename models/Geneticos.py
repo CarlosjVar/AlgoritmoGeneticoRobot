@@ -47,10 +47,18 @@ class Geneticos:
         fitDist = self.fitness_Distancia(distancia)
         fitHardw = self.fitness_Hardware(robot)
         fitBatt = self.fitness_Battery(robot.bateria)
+        print(robot.bateria.capacidad)
         robFitness = {}
         robFitness["Robot"] = robot
         robFitness["Fitness"] = fitDist+fitHardw+fitBatt
         self.valores_Fitness.append(robFitness)
+    def fitnessbruto(self,robot):
+        distancia = self.distancia_Al_Objetivo(robot)
+        fitDist = self.fitness_Distancia(distancia)
+        fitHardw = self.fitness_Hardware(robot)
+        fitBatt = self.fitness_Battery(robot.bateria)
+        return  fitDist+fitHardw+fitBatt
+
 
     def cruce(self):
         padre = 0

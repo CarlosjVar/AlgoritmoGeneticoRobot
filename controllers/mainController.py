@@ -27,8 +27,7 @@ class MainController:
         for i in range(10):
             self.generacionActual.append(Robot())
         fitness = 0
-        while fitness < 112:
-            print("\n\n\n\n",fitness)
+        while fitness < 114:
             poblacioActiva = get_poblacion_activa(self.generacionActual)
             if len(poblacioActiva) == 0:
                 self.main_view.reiniciar()
@@ -49,16 +48,6 @@ class MainController:
             if robot.completado:
                 o+=1
         print("Llegaron ",o)
-        # for robot in self.generacionActual:
-        #     robot.reinicarStats()
-        # poblacioActiva = get_poblacion_activa(self.generacionActual)
-        # while len(poblacioActiva) > 0:
-        #     poblacioActiva = get_poblacion_activa(self.generacionActual)
-        #     for rob in poblacioActiva:
-        #         realizar_siguiente_accion(rob, self.terreno)
-        # for robot in self.generacionActual:
-        #     self.main_view.updateImg(robot.posicionActual)
-        # Set generations number
         print(len(self.generacionesPasadas))
         self.main_view.generation_number_label.config(text="Generaciones: " + str(len(self.generacionesPasadas)))
 
@@ -77,16 +66,18 @@ class MainController:
             self.main_view.updateImg(robot.posicionActual)
         self.main_view.search_robot_btn["state"]='normal'
     def buscar_robot(self,event):
-        rootRobot = tkinter.Tk()
+        rootRobot = tkinter.Toplevel()
         rootRobot.title("Información del robot")
         indiceRobot=int(self.main_view.robot_input_combo.get())-1
-        print(indiceRobot)
         robot = self.generation_elegida[indiceRobot]
-        viewRobot = robotView(rootRobot,robot)
-
+        viewRobot = robotView(rootRobot,robot,self.terreno)
         rootRobot.mainloop()
+        viewRobot.botonPadre.bind("<Button-1>",self.buscar_Robot_Parent())
+
 
         pass
+
+
     def mostrarRobots(self):
         for rob in self.generacionActual:
             self.main_view.updateImg(rob.posicionActual)
