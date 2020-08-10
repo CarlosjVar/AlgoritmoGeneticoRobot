@@ -27,17 +27,27 @@ class MainController:
         for i in range(10):
             self.generacionActual.append(Robot())
         fitness = 0
-        while fitness < 114:
+        while fitness < 100:
+
             poblacioActiva = get_poblacion_activa(self.generacionActual)
             if len(poblacioActiva) == 0:
                 self.main_view.reiniciar()
+                robotcompletado=False
                 for rob in self.generacionActual:
                     self.main_view.updateImg(rob.posicionActual)
-                    pass
+                #     if(rob.completado):
+                #         robotcompletado=True
+                #         break
+                #     pass
+                # if robotcompletado:
+                #     break
                 self.generacionesPasadas.append(self.generacionActual)
                 resultadosCruce = crearNuevaGen(self.generacionActual)
                 fitness = resultadosCruce[0]
                 self.generacionActual = resultadosCruce[1]
+                if fitness <100:
+                    for robot in self.generacionActual:
+                        robot.reinicarStats()
             for rob in poblacioActiva:
                 realizar_siguiente_accion(rob, self.terreno)
         # Set fitness label

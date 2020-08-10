@@ -42,7 +42,7 @@ class robotView:
         #Setup botones padre
         self.botonPadre = Button(self.robot_input_group,text="Buscar padre")
         self.botonPadre.grid(row=0,column=0)
-        self.botonMadre = Button(self.robot_input_group,text="Buscar padre")
+        self.botonMadre = Button(self.robot_input_group,text="Buscar madre")
         self.botonMadre.grid(row=0,column=1)
         #Setup grid comportamientos
         self.container_porcenajes=Frame(self.comportamiento_container)

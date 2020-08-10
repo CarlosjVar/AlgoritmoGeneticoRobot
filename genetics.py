@@ -126,7 +126,7 @@ def realizar_siguiente_accion(robot, terreno):
     if robot.bateria.capacidad <= 0:
         robot.bateria.capacidad = 0
         robot.activo = False
-        robot.completado = True
+
 
     # Robot llegó a su destino , por tanto cesa sus funciones
     if robot.posicionActual[0] == objetivo[0] and robot.posicionActual[1] == objetivo[1]:

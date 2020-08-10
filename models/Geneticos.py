@@ -8,7 +8,7 @@ from models.Motor import Motor
 from models.Robot import Robot
 
 
-indiceMutacion = 6
+indiceMutacion = 10
 objetivo = (0,19)
 class Geneticos:
     minTime = 0
@@ -47,10 +47,11 @@ class Geneticos:
         fitDist = self.fitness_Distancia(distancia)
         fitHardw = self.fitness_Hardware(robot)
         fitBatt = self.fitness_Battery(robot.bateria)
-        print(robot.bateria.capacidad)
+        fitTravelled= self.fitness_Travelled(robot.distanciaRecorrida)
+        fitCost = self.fitness_CostoRecorrido(robot.costoRecorrido)
         robFitness = {}
         robFitness["Robot"] = robot
-        robFitness["Fitness"] = fitDist+fitHardw+fitBatt
+        robFitness["Fitness"] = fitDist+fitHardw+fitBatt+fitTravelled+fitCost
         self.valores_Fitness.append(robFitness)
     def fitnessbruto(self,robot):
         distancia = self.distancia_Al_Objetivo(robot)
@@ -80,7 +81,8 @@ class Geneticos:
 
     def fitness_Distancia(self,distancia):
         if distancia == 0:
-            return 90
+            print("lLEGO \n\n\n\n\n\n\n\n\n\n\n\n")
+            return 130
         return 80 // distancia
 
     #TODO: Analizar caso spawn cercano al objetivo
