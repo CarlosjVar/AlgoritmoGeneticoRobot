@@ -27,7 +27,8 @@ class MainController:
         for i in range(10):
             self.generacionActual.append(Robot())
         fitness = 0
-        while fitness < 100:
+        fitnessObjetivo=100
+        while fitness < fitnessObjetivo:
 
             poblacioActiva = get_poblacion_activa(self.generacionActual)
             if len(poblacioActiva) == 0:
@@ -46,7 +47,7 @@ class MainController:
                 resultadosCruce = crearNuevaGen(self.generacionActual)
                 fitness = resultadosCruce[0]
                 self.generacionActual = resultadosCruce[1]
-                if fitness <100:
+                if fitness <fitnessObjetivo:
                     for robot in self.generacionActual:
                         robot.reinicarStats()
             for rob in poblacioActiva:
