@@ -14,6 +14,10 @@ class MainView:
         self.btn_container.grid(row=0, column=1)
         self.iniciar_btn = Button(self.btn_container, text="Iniciar algoritmo")
         self.iniciar_btn.grid(row=0, column=0)
+        self.checkbox_value = BooleanVar(root_window)
+        self.FastGeneration = Checkbutton(self.btn_container,text= "Obtener primero en objetivo",variable=self.checkbox_value,)
+        self.FastGeneration.grid(row=1,column=0)
+
         # Algorithm information
         self.algorithm_info_container = Frame(root_window)
         self.algorithm_info_container.grid(row=1, column=0, sticky="W")

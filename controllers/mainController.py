@@ -35,12 +35,13 @@ class MainController:
                 robotcompletado=False
                 for rob in self.generacionActual:
                     self.main_view.updateImg(rob.posicionActual)
-                #     if(rob.completado):
-                #         robotcompletado=True
-                #         break
-                #     pass
-                # if robotcompletado:
-                #     break
+                    if(self.main_view.checkbox_value.get()):
+                        if(rob.completado):
+                            robotcompletado=True
+                            break
+                        pass
+                if robotcompletado:
+                    break
                 self.generacionesPasadas.append(self.generacionActual)
                 resultadosCruce = crearNuevaGen(self.generacionActual)
                 fitness = resultadosCruce[0]
